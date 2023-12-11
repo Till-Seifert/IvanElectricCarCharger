@@ -1,16 +1,12 @@
-plugins {
-    id 'info.solidsoft.pitest' version '1.5.1'
-}
 apply plugin: 'java'
-apply plugin: "jacoco"
 
 version = '1.0.0'
 
-description = """TddSkeleton"""
+description = """IvanElectricCarCharger"""
 
 java {
     toolchain {
-        languageVersion.set(JavaLanguageVersion.of(17))
+        languageVersion.set(JavaLanguageVersion.of(21))
     }
 }
 
@@ -37,19 +33,4 @@ test {
     testLogging {
         events "passed", "skipped", "failed"
     }
-}
-jacoco {
-    toolVersion = "0.8.7"
-    reportsDirectory = file("$buildDir/customJacocoReportDir")
-}
-jacocoTestReport {
-    reports {
-        xml.enabled false
-        csv.enabled false
-        html.destination file("${buildDir}/jacocoHtml")
-    }
-}
-pitest {
-    targetClasses = ['com.oocode.*']
-    outputFormats = ['HTML']
 }

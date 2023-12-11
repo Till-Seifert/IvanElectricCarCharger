@@ -10,6 +10,18 @@ import java.io.PrintStream;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.MatcherAssert.assertThat;
 
+/*
+Tests the whole "system" - including its external dependency (a National Grid ESO service).
+
+Advantages:
+    Shows whether the whole "system" works (to some extent)
+
+Disadvantages:
+    Limited in what you can assert about the output, because it depends on the result of the external service which is not under our control.
+    Slow to run
+    Could fail due to a problem with the external service rather than our code
+ */
+
 public class ExampleSystemTest {
     @Test
     public void canInterpretNationalGridDataCorrectly() throws Exception {

@@ -15,9 +15,9 @@ import static org.hamcrest.Matchers.equalTo;
 class BestTimesFinderUnitTest {
     @Test
     public void canFindBestTimes() throws IOException, CsvException {
-        BestTimesFinder underTest = new BestTimesFinder(new HardCodedDataProvider(hardCodedContent));
+        BestTimesFinder underTest = new NationalGridEsoBestTimesFinder(new HardCodedDataProvider(hardCodedContent));
 
-        var actual = underTest.getZonedDateTimes();
+        var actual = underTest.bestTimes();
 
         assertThat(actual, equalTo(List.of(
                 ZonedDateTime.of(2023, 12, 11, 11,30, 0, 0, ZoneId.of("GMT")),

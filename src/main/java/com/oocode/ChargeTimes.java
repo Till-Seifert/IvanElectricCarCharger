@@ -26,7 +26,11 @@ public class ChargeTimes {
     }
 
     public ChargeTimes(NationalGridEsoDataProvider nationalGridEsoDataProvider) {
-        bestTimesFinder = new BestTimesFinder(nationalGridEsoDataProvider);
+        this(new NationalGridEsoBestTimesFinder(nationalGridEsoDataProvider));
+    }
+
+    public ChargeTimes(BestTimesFinder bestTimesFinder) {
+        this.bestTimesFinder = bestTimesFinder;
         reportGenerator = new ReportGenerator();
     }
 
@@ -40,6 +44,6 @@ public class ChargeTimes {
     }
 
     String report() throws IOException, CsvException {
-        return reportGenerator.reportFor(bestTimesFinder.getZonedDateTimes());
+        return reportGenerator.reportFor(bestTimesFinder.bestTimes());
     }
 }

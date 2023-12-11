@@ -13,9 +13,9 @@ import static org.mockito.Mockito.mock;
 public class ExampleMocksUnitTest {
     @Test
     public void canInterpretNationalGridDataCorrectly() throws Exception {
-        BestTimesFinder bestTimesFinder = mock(BestTimesFinder.class);
+        BestTimesFinder bestTimesFinder = mock(NationalGridEsoBestTimesFinder.class);
         List<ZonedDateTime> aListOfZonedDateTimes = List.of(ZonedDateTime.now());
-        given(bestTimesFinder.getZonedDateTimes()).willReturn(aListOfZonedDateTimes);
+        given(bestTimesFinder.bestTimes()).willReturn(aListOfZonedDateTimes);
 
         ReportGenerator reportGenerator = mock(ReportGenerator.class);
         given(reportGenerator.reportFor(aListOfZonedDateTimes)).willReturn("some string");

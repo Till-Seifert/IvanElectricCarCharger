@@ -1,47 +1,22 @@
 package com.oocode;
 
 import com.oocode.fakes.HardCodedDataProvider;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-/*
-Essentially a minor variant of ExampleLayeredUnit_2a_Test - the difference being here we've decided to fake the response from the external service at a slightly higher level.
- */
-
-public class ExampleLayeredUnit_2b_Test {
+public class ExampleLayeredUnit_2d_Test {
     @Test
     public void canInterpretNationalGridDataCorrectly() throws Exception {
-        var newOut = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(newOut));
+        var report = new ChargeTimes(new HardCodedDataProvider(hardCodedContent)).report();
 
-        new ChargeTimes(new HardCodedDataProvider(hardCodedContent)).printReport();
-        System.out.flush(); // to be sure
-
-        assertThat(newOut.toString().trim(), equalTo("""
+        assertThat(report, equalTo("""
 Best times to plug in:
 Mon, 11 Dec 2023 11:30:00 GMT
 Mon, 11 Dec 2023 12:00:00 GMT
 Mon, 11 Dec 2023 12:30:00 GMT
 """.trim()));
-    }
-
-    private PrintStream oldOut;
-
-    @BeforeEach
-    public void rememberRealSystemOut() {
-        this.oldOut = System.out;
-    }
-
-    @AfterEach
-    public void restoreSystemOut() {
-        System.setOut(this.oldOut);
     }
 
     private final String hardCodedContent = """

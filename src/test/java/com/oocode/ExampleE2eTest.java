@@ -14,6 +14,27 @@ import java.io.Writer;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
+/*
+Tests all of the "system" which is under our control - excludes the external dependency.
+It does this by running an HTTP server which mimics the real external dependency.
+
+Advantages:
+    Shows whether that part of the "system" which is under our control, works correctly
+    Can assert about the output because everything is under our control
+
+Disadvantages:
+    Slightly slower to run than it could be because it is starting up a real HTTP server
+    Could fail due to a problem with the HTTP server which we use to mimic the real external dependency, rather than our code
+    Could fail due to the main method being incorrect - this test bypasses the main method
+    Does not test whether the configuration of the real system is correct, i.e. the test tells the code what URL to use (which corresponds to
+        the HTTP server which we are running to mimic the real external dependency). The configuration in the production code could be incorrect,
+        which would mean that even if this tests passes, the real system could be broken.
+    Tests everything together, so if the test fails it could be difficult to work out what is wrong
+    If there is part of the code which has a lot of logic, and we want to test a lot of permutations of inputs for it, it could be difficult to
+        set up this sort of test (or at very least, could be difficult to make it neat without having a lot of distractions from the essence of
+        what we want to test).
+    Could be difficult for someone reading the test to understand the intention of the system
+ */
 public class ExampleE2eTest {
     @Test
     public void canInterpretNationalGridDataCorrectly() throws Exception {
