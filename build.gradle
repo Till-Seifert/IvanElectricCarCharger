@@ -1,4 +1,5 @@
 apply plugin: 'java'
+apply plugin: "jacoco"
 
 version = '1.0.0'
 
@@ -32,5 +33,14 @@ test {
     useJUnitPlatform()
     testLogging {
         events "passed", "skipped", "failed"
+    }
+}
+jacoco {
+    toolVersion = "0.8.11"
+    reportsDirectory = file("$buildDir/customJacocoReportDir")
+}
+jacocoTestReport {
+    reports {
+        html.outputLocation = file("${buildDir}/jacocoHtml")
     }
 }
