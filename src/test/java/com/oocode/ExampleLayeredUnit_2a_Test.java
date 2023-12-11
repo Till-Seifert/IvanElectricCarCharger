@@ -1,16 +1,25 @@
 package com.oocode;
 
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class ExampleE2e_2c_Test {
+public class ExampleLayeredUnit_2a_Test {
     @Test
     public void canInterpretNationalGridDataCorrectly() throws Exception {
-        var report = new ChargeTimes(new HardCodedDataProvider(hardCodedContent)).report();
+        var newOut = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(newOut));
 
-        assertThat(report, equalTo("""
+        new ChargeTimes("some url - not used for this", new HardCodedHttpClient(hardCodedContent)).printReport();
+        System.out.flush(); // to be sure
+
+        assertThat(newOut.toString().trim(), equalTo("""
 Best times to plug in:
 Mon, 11 Dec 2023 11:30:00 GMT
 Mon, 11 Dec 2023 12:00:00 GMT
@@ -18,15 +27,27 @@ Mon, 11 Dec 2023 12:30:00 GMT
 """.trim()));
     }
 
-    public static class HardCodedDataProvider implements NationalGridEsoDataProvider {
+    private PrintStream oldOut;
+
+    @BeforeEach
+    public void rememberRealSystemOut() {
+        this.oldOut = System.out;
+    }
+
+    @AfterEach
+    public void restoreSystemOut() {
+        System.setOut(this.oldOut);
+    }
+
+    public static class HardCodedHttpClient implements HttpClient {
         private final String hardCodedContent;
 
-        public HardCodedDataProvider(String hardCodedContent) {
+        public HardCodedHttpClient(String hardCodedContent) {
             this.hardCodedContent = hardCodedContent;
         }
 
         @Override
-        public String data() {
+        public String readUrl(String url) {
             return hardCodedContent;
         }
     }

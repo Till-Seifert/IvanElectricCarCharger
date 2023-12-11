@@ -6,11 +6,9 @@ import java.io.IOException;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static java.lang.Integer.parseInt;
 import static java.time.LocalDateTime.parse;
-import static java.time.format.DateTimeFormatter.RFC_1123_DATE_TIME;
 import static java.util.Comparator.comparingInt;
 import static java.util.stream.Collectors.toList;
 
@@ -20,6 +18,7 @@ public class ChargeTimes {
     }
 
     private final NationalGridEsoDataProvider nationalGridEsoDataProvider;
+    private final ReportGenerator reportGenerator = new ReportGenerator();
 
     public ChargeTimes() {
         this.nationalGridEsoDataProvider = () -> new SimpleHttpClient()
@@ -43,10 +42,7 @@ public class ChargeTimes {
     }
 
     String report() throws IOException, CsvException {
-        return "Best times to plug in:\n" +
-                getZonedDateTimes().stream()
-                        .map((zonedDateTime) -> zonedDateTime.format(RFC_1123_DATE_TIME))
-                        .collect(Collectors.joining("\n"));
+        return reportGenerator.reportFor(getZonedDateTimes());
     }
 
     /*

@@ -10,7 +10,7 @@ import java.io.PrintStream;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class ExampleE2e_2b_Test {
+public class ExampleLayeredUnit_2b_Test {
     @Test
     public void canInterpretNationalGridDataCorrectly() throws Exception {
         var newOut = new ByteArrayOutputStream();
