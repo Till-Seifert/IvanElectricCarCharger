@@ -1,8 +1,8 @@
 package com.oocode;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -24,12 +24,12 @@ public class ExampleSystemTest {
 
     private PrintStream oldOut;
 
-    @Before
+    @BeforeEach
     public void rememberRealSystemOut() {
         this.oldOut = System.out;
     }
 
-    @After
+    @AfterEach
     public void restoreSystemOut() {
         System.setOut(this.oldOut);
     }

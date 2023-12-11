@@ -1,15 +1,18 @@
 package com.oocode;
 
-import com.oneeyedmen.okeydoke.junit.ApprovalsRule;
-import org.junit.Rule;
-import org.junit.Test;
+import com.oneeyedmen.okeydoke.Approver;
+import com.oneeyedmen.okeydoke.junit5.ApprovalsExtension;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
+
+import java.io.File;
 
 public class ExampleApprovalTest {
-    @Rule
-    public final ApprovalsRule approver = ApprovalsRule.fileSystemRule("src/test/resources/approval");
+    @RegisterExtension
+    ApprovalsExtension approvals = new ApprovalsExtension(new File("src/test/resources/approval"));
 
     @Test
-    public void canInterpretNationalGridDataCorrectly() throws Exception {
+    public void canInterpretNationalGridDataCorrectly(Approver approver) throws Exception {
         var report = new ChargeTimes(new HardCodedDataProvider(hardCodedContent)).report();
 
         approver.assertApproved(report);

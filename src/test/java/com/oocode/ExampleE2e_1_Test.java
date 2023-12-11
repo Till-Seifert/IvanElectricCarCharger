@@ -3,9 +3,9 @@ package com.oocode;
 import io.fusionauth.http.server.HTTPHandler;
 import io.fusionauth.http.server.HTTPListenerConfiguration;
 import io.fusionauth.http.server.HTTPServer;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -34,7 +34,7 @@ Mon, 11 Dec 2023 12:30:00 GMT
     private PrintStream oldOut;
     private HTTPServer server;
 
-    @Before
+    @BeforeEach
     public void startLocalServerPretendingToBeNationalGridEso() {
         HTTPHandler handler = (req, res) -> {
             try(Writer writer = res.getWriter()) {
@@ -56,17 +56,17 @@ Mon, 11 Dec 2023 12:30:00 GMT
         server.start();
     }
 
-    @After
+    @AfterEach
     public void stopLocalServerPretendingToBeNationalGridEso() {
         server.close();
     }
 
-    @Before
+    @BeforeEach
     public void rememberRealSystemOut() {
         this.oldOut = System.out;
     }
 
-    @After
+    @AfterEach
     public void restoreSystemOut() {
         System.setOut(this.oldOut);
     }

@@ -1,8 +1,8 @@
 package com.oocode;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -29,12 +29,12 @@ Mon, 11 Dec 2023 12:30:00 GMT
 
     private PrintStream oldOut;
 
-    @Before
+    @BeforeEach
     public void rememberRealSystemOut() {
         this.oldOut = System.out;
     }
 
-    @After
+    @AfterEach
     public void restoreSystemOut() {
         System.setOut(this.oldOut);
     }
