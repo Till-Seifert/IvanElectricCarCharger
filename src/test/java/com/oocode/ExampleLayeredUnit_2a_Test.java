@@ -1,5 +1,6 @@
 package com.oocode;
 
+import com.oocode.fakes.HardCodedHttpClient;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -37,19 +38,6 @@ Mon, 11 Dec 2023 12:30:00 GMT
     @AfterEach
     public void restoreSystemOut() {
         System.setOut(this.oldOut);
-    }
-
-    public static class HardCodedHttpClient implements HttpClient {
-        private final String hardCodedContent;
-
-        public HardCodedHttpClient(String hardCodedContent) {
-            this.hardCodedContent = hardCodedContent;
-        }
-
-        @Override
-        public String readUrl(String url) {
-            return hardCodedContent;
-        }
     }
 
     private final String hardCodedContent = """

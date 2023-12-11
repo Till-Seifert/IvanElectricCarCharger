@@ -1,44 +1,32 @@
 package com.oocode;
 
 import com.oocode.fakes.HardCodedDataProvider;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
+import com.opencsv.exceptions.CsvException;
 import org.junit.jupiter.api.Test;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
+import java.io.IOException;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.util.List;
 
-import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
 
-public class ExampleLayeredUnit_2b_Test {
+class BestTimesFinderUnitTest {
     @Test
-    public void canInterpretNationalGridDataCorrectly() throws Exception {
-        var newOut = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(newOut));
+    public void canFindBestTimes() throws IOException, CsvException {
+        BestTimesFinder underTest = new BestTimesFinder(new HardCodedDataProvider(hardCodedContent));
 
-        new ChargeTimes(new HardCodedDataProvider(hardCodedContent)).printReport();
-        System.out.flush(); // to be sure
+        var actual = underTest.getZonedDateTimes();
 
-        assertThat(newOut.toString().trim(), equalTo("""
-Best times to plug in:
-Mon, 11 Dec 2023 11:30:00 GMT
-Mon, 11 Dec 2023 12:00:00 GMT
-Mon, 11 Dec 2023 12:30:00 GMT
-""".trim()));
+        assertThat(actual, equalTo(List.of(
+                ZonedDateTime.of(2023, 12, 11, 11,30, 0, 0, ZoneId.of("GMT")),
+                ZonedDateTime.of(2023, 12, 11, 12,0, 0, 0, ZoneId.of("GMT")),
+                ZonedDateTime.of(2023, 12, 11, 12,30, 0, 0, ZoneId.of("GMT"))
+                )));
     }
 
-    private PrintStream oldOut;
-
-    @BeforeEach
-    public void rememberRealSystemOut() {
-        this.oldOut = System.out;
-    }
-
-    @AfterEach
-    public void restoreSystemOut() {
-        System.setOut(this.oldOut);
-    }
+    // etc - might have lots of permutations
 
     private final String hardCodedContent = """
 "DATE_GMT","TIME_GMT","SETTLEMENT_DATE","SETTLEMENT_PERIOD","EMBEDDED_WIND_FORECAST","EMBEDDED_WIND_CAPACITY","EMBEDDED_SOLAR_FORECAST","EMBEDDED_SOLAR_CAPACITY"

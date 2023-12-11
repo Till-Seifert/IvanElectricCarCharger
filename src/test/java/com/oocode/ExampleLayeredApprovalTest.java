@@ -2,12 +2,13 @@ package com.oocode;
 
 import com.oneeyedmen.okeydoke.Approver;
 import com.oneeyedmen.okeydoke.junit5.ApprovalsExtension;
+import com.oocode.fakes.HardCodedDataProvider;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 import java.io.File;
 
-public class ExampleApprovalTest {
+public class ExampleLayeredApprovalTest {
     @RegisterExtension
     ApprovalsExtension approvals = new ApprovalsExtension(new File("src/test/resources/approval"));
 
@@ -16,19 +17,6 @@ public class ExampleApprovalTest {
         var report = new ChargeTimes(new HardCodedDataProvider(hardCodedContent)).report();
 
         approver.assertApproved(report);
-    }
-
-    public static class HardCodedDataProvider implements NationalGridEsoDataProvider {
-        private final String hardCodedContent;
-
-        public HardCodedDataProvider(String hardCodedContent) {
-            this.hardCodedContent = hardCodedContent;
-        }
-
-        @Override
-        public String data() {
-            return hardCodedContent;
-        }
     }
 
     private final String hardCodedContent = """

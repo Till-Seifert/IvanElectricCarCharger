@@ -1,5 +1,6 @@
 package com.oocode;
 
+import com.oocode.fakes.HardCodedDataProvider;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -16,19 +17,6 @@ Mon, 11 Dec 2023 11:30:00 GMT
 Mon, 11 Dec 2023 12:00:00 GMT
 Mon, 11 Dec 2023 12:30:00 GMT
 """.trim()));
-    }
-
-    public static class HardCodedDataProvider implements NationalGridEsoDataProvider {
-        private final String hardCodedContent;
-
-        public HardCodedDataProvider(String hardCodedContent) {
-            this.hardCodedContent = hardCodedContent;
-        }
-
-        @Override
-        public String data() {
-            return hardCodedContent;
-        }
     }
 
     private final String hardCodedContent = """
