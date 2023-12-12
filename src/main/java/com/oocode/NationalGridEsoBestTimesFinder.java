@@ -1,8 +1,10 @@
 package com.oocode;
 
+import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvException;
 
 import java.io.IOException;
+import java.io.StringReader;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.List;
@@ -18,7 +20,7 @@ public class NationalGridEsoBestTimesFinder {
 "2023-12-11T00:00:00","11:30","2023-12-11T00:00:00",23,1333,6488,2417,15595
      */
     public List<ZonedDateTime> bestTimes(String input) throws IOException, CsvException {
-        List<String[]> forecastRows = new CsvReader().readRows(input);
+        List<String[]> forecastRows = readRows(input);
         return forecastRows.stream().skip(1)
                 .sorted(comparingInt(row -> -parseInt(row[4])))
                 .limit(3)
@@ -28,5 +30,13 @@ public class NationalGridEsoBestTimesFinder {
                         ZoneId.of("GMT")))
                 .sorted()
                 .collect(toList());
+    }
+
+    private List<String[]> readRows(String input) throws IOException, CsvException {
+        List<String[]> result;
+        try (CSVReader csvReader = new CSVReader(new StringReader(input))) {
+            result = csvReader.readAll();
+        }
+        return result;
     }
 }
