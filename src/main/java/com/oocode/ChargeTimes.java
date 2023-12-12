@@ -28,7 +28,7 @@ public class ChargeTimes {
     }
 
     public ChargeTimes(NationalGridEsoDataProvider nationalGridEsoDataProvider) {
-        this(new NationalGridEsoBestTimesFinder(nationalGridEsoDataProvider));
+        this(() -> new NationalGridEsoBestTimesFinder().bestTimes(nationalGridEsoDataProvider.data()));
     }
 
     public ChargeTimes(BestTimesFinder bestTimesFinder) {

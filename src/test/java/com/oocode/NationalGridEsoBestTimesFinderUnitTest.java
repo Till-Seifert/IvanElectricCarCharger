@@ -1,6 +1,5 @@
 package com.oocode;
 
-import com.oocode.fakes.HardCodedDataProvider;
 import com.opencsv.exceptions.CsvException;
 import org.junit.jupiter.api.Test;
 
@@ -13,7 +12,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
 /*
-A unit test of just the report generation
+A unit test of just finding the best times
 
 Advantages:
     Allows simple and direct setup and assertion of just the bit of behaviour that is relevant
@@ -29,18 +28,22 @@ Disadvantages:
         the unit tests can make refactoring more difficult
  */
 
-class BestTimesFinderUnitTest {
+class NationalGridEsoBestTimesFinderUnitTest {
     @Test
     public void canFindBestTimes() throws IOException, CsvException {
-        BestTimesFinder underTest = new NationalGridEsoBestTimesFinder(new HardCodedDataProvider(hardCodedContent));
+        NationalGridEsoBestTimesFinder underTest = new NationalGridEsoBestTimesFinder();
 
-        var actual = underTest.bestTimes();
+        var actual = underTest.bestTimes(hardCodedContent);
 
         assertThat(actual, equalTo(List.of(
-                ZonedDateTime.of(2023, 12, 11, 11,30, 0, 0, ZoneId.of("GMT")),
-                ZonedDateTime.of(2023, 12, 11, 12,0, 0, 0, ZoneId.of("GMT")),
-                ZonedDateTime.of(2023, 12, 11, 12,30, 0, 0, ZoneId.of("GMT"))
-                )));
+                zonedDateTimeFor(11, 30),
+                zonedDateTimeFor(12, 0),
+                zonedDateTimeFor(12, 30)
+        )));
+    }
+
+    private static ZonedDateTime zonedDateTimeFor(int hour, int minute) {
+        return ZonedDateTime.of(2023, 12, 11, hour, minute, 0, 0, ZoneId.of("GMT"));
     }
 
     // etc - might have lots of permutations

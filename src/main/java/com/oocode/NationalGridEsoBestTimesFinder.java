@@ -12,20 +12,13 @@ import static java.time.LocalDateTime.parse;
 import static java.util.Comparator.comparingInt;
 import static java.util.stream.Collectors.toList;
 
-public class NationalGridEsoBestTimesFinder implements BestTimesFinder {
-    private final NationalGridEsoDataProvider nationalGridEsoDataProvider;
-
-    public NationalGridEsoBestTimesFinder(NationalGridEsoDataProvider nationalGridEsoDataProvider) {
-        this.nationalGridEsoDataProvider = nationalGridEsoDataProvider;
-    }
-
+public class NationalGridEsoBestTimesFinder {
     /*
 "DATE_GMT","TIME_GMT","SETTLEMENT_DATE","SETTLEMENT_PERIOD","EMBEDDED_WIND_FORECAST","EMBEDDED_WIND_CAPACITY","EMBEDDED_SOLAR_FORECAST","EMBEDDED_SOLAR_CAPACITY"
 "2023-12-11T00:00:00","11:30","2023-12-11T00:00:00",23,1333,6488,2417,15595
      */
-    @Override
-    public List<ZonedDateTime> bestTimes() throws IOException, CsvException {
-        List<String[]> forecastRows = new CsvReader().readRows(nationalGridEsoDataProvider.data());
+    public List<ZonedDateTime> bestTimes(String input) throws IOException, CsvException {
+        List<String[]> forecastRows = new CsvReader().readRows(input);
         return forecastRows.stream().skip(1)
                 .sorted(comparingInt(row -> -parseInt(row[4])))
                 .limit(3)
