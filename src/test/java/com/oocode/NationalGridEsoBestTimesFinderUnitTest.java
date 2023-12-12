@@ -12,7 +12,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
 /*
-A unit test of just finding the best times
+A unit test of just finding the best times.
 
 Advantages:
     Allows simple and direct setup and assertion of just the bit of behaviour that is relevant
@@ -26,6 +26,13 @@ Disadvantages:
     If you have badly designed the API or interface of the class under test, then this sort of test could need
         changing when you want to improve the design; i.e. with badly designed code and badly designed unit tests
         the unit tests can make refactoring more difficult
+
+Comment:
+    You might have done this in two parts:
+        - parsing the input
+        - finding the best times
+    I didn't want this example to go even further in splitting things up, but if I had done this TDD then I think
+        there is a good chance that it would have ended up as separate classes for those two parts.
  */
 
 class NationalGridEsoBestTimesFinderUnitTest {
