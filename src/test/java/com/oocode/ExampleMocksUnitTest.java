@@ -28,7 +28,7 @@ Disadvantages:
 
 public class ExampleMocksUnitTest {
     @Test
-    public void everythingInPluggedTogether() throws Exception {
+    public void everythingIsPluggedTogether() throws Exception {
         BestTimesFinder bestTimesFinder = mock(BestTimesFinder.class);
         List<ZonedDateTime> aListOfZonedDateTimes = List.of(ZonedDateTime.now());
         given(bestTimesFinder.bestTimes()).willReturn(aListOfZonedDateTimes);
