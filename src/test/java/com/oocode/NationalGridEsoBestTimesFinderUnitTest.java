@@ -49,11 +49,11 @@ class NationalGridEsoBestTimesFinderUnitTest {
         )));
     }
 
+    // etc - might have lots of permutations
+
     private static ZonedDateTime zonedDateTimeFor(int hour, int minute) {
         return ZonedDateTime.of(2023, 12, 11, hour, minute, 0, 0, ZoneId.of("GMT"));
     }
-
-    // etc - might have lots of permutations
 
     private final String hardCodedContent = """
 "DATE_GMT","TIME_GMT","SETTLEMENT_DATE","SETTLEMENT_PERIOD","EMBEDDED_WIND_FORECAST","EMBEDDED_WIND_CAPACITY","EMBEDDED_SOLAR_FORECAST","EMBEDDED_SOLAR_CAPACITY"
