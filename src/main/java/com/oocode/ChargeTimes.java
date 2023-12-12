@@ -49,7 +49,7 @@ public class ChargeTimes {
         return reportGenerator.reportFor(bestTimes());
     }
 
-    List<ZonedDateTime> bestTimes() throws IOException, CsvException {
+    private List<ZonedDateTime> bestTimes() throws IOException, CsvException {
         return bestTimesFinder.bestTimes();
     }
 }
