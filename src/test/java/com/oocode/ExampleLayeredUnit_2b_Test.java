@@ -15,8 +15,8 @@ import static org.hamcrest.MatcherAssert.assertThat;
 A minor variant of ExampleLayeredUnit_2a_Test - the difference being here we've decided to fake the response from the external service at a slightly higher level.
 
 Advantages compared to ExampleLayeredUnit_2a_Test:
-    You might prefer this from a design point of view - it is more encapsulated - e.g. ChargeTimes does not need to know whether the data comes from HTTP or anywhere else;
-        this extra level of indirection might be wanted
+    You might prefer this from a design point of view - it is more encapsulated
+        e.g. ChargeTimes does not need to know whether the data comes from HTTP or anywhere else
 
 Disadvantages compared to ExampleLayeredUnit_2a_Test:
     Could be an unnecessary level of indirection

@@ -10,6 +10,12 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.List;
 
+/*
+An approval test version of ReportGeneratorUnitTest, to show that an approval testing framework can be used for
+any "level" of test - it doesn't have to be used just as an "outer level" sort of thing.
+
+Likewise for things like https://cucumber.io/ - does not need to be only used an "outer level" sort of thing.
+ */
 class ReportGeneratorApprovalTest {
     @RegisterExtension
     ApprovalsExtension approvals = new ApprovalsExtension(new File("src/test/resources/approval"));

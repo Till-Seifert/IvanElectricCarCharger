@@ -8,6 +8,19 @@ import org.junit.jupiter.api.extension.RegisterExtension;
 
 import java.io.File;
 
+/*
+A variant of ExampleLayeredUnit_2c_Test, using an approval testing tool instead of String comparison for the assertion
+
+Advantages compared to ExampleLayeredUnit_2c_Test:
+    Easier to see what the difference is in the report if it changes
+    Possibly easier to see what an example report looks like (certainly if using a version of Java which does
+        not support multi-line strings).
+    Easier to read if the report is very long
+
+Disadvantages compared to ExampleLayeredUnit_2c_Test:
+    The expectation of what the report should look like is not directly in the test, but in an external file
+ */
+
 public class ExampleLayeredApprovalTest {
     @RegisterExtension
     ApprovalsExtension approvals = new ApprovalsExtension(new File("src/test/resources/approval"));

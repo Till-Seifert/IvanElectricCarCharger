@@ -14,10 +14,11 @@ import static org.hamcrest.MatcherAssert.assertThat;
 A variant of ExampleLayeredUnit_2c_Test - this time faking the bit of code which finds the best times
 
 Advantages compared to ExampleLayeredUnit_2c_Test:
-    Further encapsulation - now this is a more focused test; if the test fails it should be easier to tell where the problem is
+    Further encapsulation - now this is a more focused test;
+        if the test fails it should be easier to tell where the problem is
 
 Disadvantages compared to ExampleLayeredUnit_2c_Test:
-    This test tests slightly less of the system; you might want another test to make sure everything is "plugged together"
+    This test tests slightly less of the system; you will need other tests to make sure everything works together
  */
 
 public class ExampleLayeredUnit_2d_Test {

@@ -12,6 +12,23 @@ import java.util.List;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
+/*
+A unit test of just the report generation
+
+Advantages:
+    Allows simple and direct setup and assertion of just the bit of behaviour that is relevant
+    Very suitable for where there is complicated logic - a unit test like this can test a lot of permutations
+    If it fails, easier to find where the problem is
+    Runs very quickly
+
+Disadvantages:
+    Only tests the report generation - that is the whole point of this sort of test
+    If this test passes, it doesn't mean the system as a whole works - you need other tests for that
+    If you have badly designed the API or interface of the class under test, then this sort of test could need
+        changing when you want to improve the design; i.e. with badly designed code and badly designed unit tests
+        the unit tests can make refactoring more difficult
+ */
+
 class BestTimesFinderUnitTest {
     @Test
     public void canFindBestTimes() throws IOException, CsvException {

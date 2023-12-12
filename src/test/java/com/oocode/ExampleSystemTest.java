@@ -17,9 +17,10 @@ Advantages:
     Shows whether the whole "system" works (to some extent)
 
 Disadvantages:
-    Limited in what you can assert about the output, because it depends on the result of the external service which is not under our control.
-    Slow to run
+    Limited in what you can assert about the output, because it depends on the result of the
+        external service which is not under our control.
     Could fail due to a problem with the external service rather than our code
+    Slow to run
  */
 
 public class ExampleSystemTest {

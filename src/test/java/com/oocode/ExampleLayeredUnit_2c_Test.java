@@ -7,13 +7,14 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 /*
-A minor variant of ExampleLayeredUnit_2b_Test - the difference being here we are not testing that the report is written to "System.out", but just directly testing the report String.
+A minor variant of ExampleLayeredUnit_2b_Test - the difference being here we are not testing that the
+report is written to "System.out", but just directly testing the report String.
 
 Advantages compared to ExampleLayeredUnit_2a_Test:
     Makes the test easier to read an write - less extraneous noise
 
 Disadvantages compared to ExampleLayeredUnit_2a_Test:
-    Means we have to expose a method "report" which would not otherwise need to exist <TODO more>
+    Means we have to expose a method "report" which might not otherwise need to exist
  */
 
 public class ExampleLayeredUnit_2c_Test {
