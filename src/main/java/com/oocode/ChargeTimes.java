@@ -3,6 +3,8 @@ package com.oocode;
 import com.opencsv.exceptions.CsvException;
 
 import java.io.IOException;
+import java.time.ZonedDateTime;
+import java.util.List;
 
 public class ChargeTimes {
     public static void main(String[] args) throws Exception {
@@ -44,6 +46,10 @@ public class ChargeTimes {
     }
 
     String report() throws IOException, CsvException {
-        return reportGenerator.reportFor(bestTimesFinder.bestTimes());
+        return reportGenerator.reportFor(bestTimes());
+    }
+
+    List<ZonedDateTime> bestTimes() throws IOException, CsvException {
+        return bestTimesFinder.bestTimes();
     }
 }
