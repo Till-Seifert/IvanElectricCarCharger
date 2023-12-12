@@ -18,7 +18,7 @@ It does this by faking the HTTP response from the external dependency.
 Advantages:
     Shows whether most of the "system" works correctly
     Can assert about the output because everything is under our control
-    Runs very quickly because does not really use HTTP
+    Runs very quickly because does not really use HTTP and doesn't read a file
     Allows for refactoring the vast majority of the code, without having to change this test, because this test is
         testing the overall behaviour of the system rather than anything specific to the implementation
         (apart from the ability to specify the URL and HTTP client, which could have been done differently)
@@ -30,10 +30,6 @@ Disadvantages:
         to make it neat without having a lot of distractions from the essence of what we want to test).
     Could be difficult for someone reading the test to understand the intention of the system
     Could fail due to the main method being incorrect - this test bypasses the main method
-    Does not test whether the configuration of the real system is correct, i.e. the test tells the code what
-        URL to use (which corresponds to the HTTP server which we are running to mimic the real external dependency).
-        The configuration in the production code could be incorrect, which would mean that even if this tests passes,
-        the real system could be broken.
  */
 
 public class ExampleLayeredUnit_2a_Test {
