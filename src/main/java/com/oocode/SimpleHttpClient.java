@@ -7,8 +7,7 @@ import java.util.Scanner;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 
-public class SimpleHttpClient implements HttpClient {
-    @Override
+public class SimpleHttpClient {
     public String readUrl(String url) throws IOException {
         try (Scanner scanner = new Scanner(new URI(url).toURL().openStream(), UTF_8)) {
             scanner.useDelimiter("\\A");
