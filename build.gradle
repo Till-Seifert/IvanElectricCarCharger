@@ -40,7 +40,6 @@ test {
 }
 jacoco {
     toolVersion = "0.8.11"
-    reportsDirectory = file("$buildDir/customJacocoReportDir")
 }
 jacocoTestReport {
     reports {
