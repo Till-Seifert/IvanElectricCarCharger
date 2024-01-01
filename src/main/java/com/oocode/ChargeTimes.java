@@ -15,20 +15,21 @@ public class ChargeTimes {
     private final ReportGenerator reportGenerator;
 
     public ChargeTimes() {
-        this(() -> new SimpleHttpClient()
-                .readUrl("https://api.nationalgrideso.com/dataset/91c0c70e-0ef5-4116-b6fa-7ad084b5e0e8/resource/db6c038f-98af-4570-ab60-24d71ebd0ae5/download/embedded-forecast.csv"));
+        this(new NationalGridEsoDataProvider(
+                new SimpleHttpClient(),
+                "https://api.nationalgrideso.com/dataset/91c0c70e-0ef5-4116-b6fa-7ad084b5e0e8/resource/db6c038f-98af-4570-ab60-24d71ebd0ae5/download/embedded-forecast.csv"));
     }
 
     public ChargeTimes(String url) {
-        this(() -> new SimpleHttpClient().readUrl(url));
+        this(new NationalGridEsoDataProvider(new SimpleHttpClient(), url));
     }
 
     public ChargeTimes(String url, HttpClient httpClient) {
-        this(() -> httpClient.readUrl(url));
+        this(new NationalGridEsoDataProvider(httpClient, url));
     }
 
-    public ChargeTimes(NationalGridEsoDataProvider nationalGridEsoDataProvider) {
-        this(() -> new NationalGridEsoBestTimesFinder().bestTimes(nationalGridEsoDataProvider.data()));
+    public ChargeTimes(DataProvider dataProvider) {
+        this(() -> new NationalGridEsoBestTimesFinder().bestTimes(dataProvider.data()));
     }
 
     private ChargeTimes(BestTimesFinder bestTimesFinder) {

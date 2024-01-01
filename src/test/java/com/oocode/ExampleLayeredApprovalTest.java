@@ -2,7 +2,7 @@ package com.oocode;
 
 import com.oneeyedmen.okeydoke.Approver;
 import com.oneeyedmen.okeydoke.junit5.ApprovalsExtension;
-import com.oocode.fakes.HardCodedDataProvider;
+import com.oocode.fakes.HardCodedHttpClient;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
@@ -27,7 +27,7 @@ public class ExampleLayeredApprovalTest {
 
     @Test
     public void canInterpretNationalGridDataCorrectly(Approver approver) throws Exception {
-        var report = new ChargeTimes(new HardCodedDataProvider(hardCodedContent)).report();
+        var report = new ChargeTimes("some url - not used for this", new HardCodedHttpClient(hardCodedContent)).report();
 
         approver.assertApproved(report);
     }

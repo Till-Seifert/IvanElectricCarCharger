@@ -1,6 +1,6 @@
 package com.oocode;
 
-import com.oocode.fakes.HardCodedDataProvider;
+import com.oocode.fakes.HardCodedHttpClient;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -29,7 +29,7 @@ public class ExampleLayeredUnit_2b_Test {
         var newOut = new ByteArrayOutputStream();
         System.setOut(new PrintStream(newOut));
 
-        new ChargeTimes(new HardCodedDataProvider(hardCodedContent)).printReport();
+        new ChargeTimes("some url - not used for this", new HardCodedHttpClient(hardCodedContent)).printReport();
         System.out.flush(); // to be sure
 
         assertThat(newOut.toString().trim(), equalTo("""

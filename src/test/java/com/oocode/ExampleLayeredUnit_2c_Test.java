@@ -1,6 +1,6 @@
 package com.oocode;
 
-import com.oocode.fakes.HardCodedDataProvider;
+import com.oocode.fakes.HardCodedHttpClient;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -20,7 +20,7 @@ Disadvantages compared to ExampleLayeredUnit_2a_Test:
 public class ExampleLayeredUnit_2c_Test {
     @Test
     public void canInterpretNationalGridDataCorrectly() throws Exception {
-        var report = new ChargeTimes(new HardCodedDataProvider(hardCodedContent)).report();
+        var report = new ChargeTimes("some url - not used for this", new HardCodedHttpClient(hardCodedContent)).report();
 
         assertThat(report, equalTo("""
 Best times to plug in:
