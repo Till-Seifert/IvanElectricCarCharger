@@ -8,6 +8,16 @@ It is not meant to be a useful program - it is just something for which tests ca
 
 If you want to try out this program, execute: `./gradlew run`
 
+Run the usual build and tests:
+```bash
+./gradlew clean build
+```
+
+Run the usual build and tests and additionally run a "code coverage" tool, called "[Jacoco](https://www.jacoco.org/jacoco/)" and open a browser on the results:
+```bash
+./build.sh
+```
+
 In practice, you would be unlikely to want to include tests at all of these different levels for the same bit of code.
 
 The code has been written to be testable in the different ways which are demonstrated; you might or might not want to split it up in this way, and in particular you would be unlikely to want to be able to construct ChargeTimes in all the different ways which have been supported in order to allow tests to be written at so many different levels.
