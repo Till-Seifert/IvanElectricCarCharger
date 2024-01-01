@@ -8,6 +8,16 @@ It is not meant to be a useful program - it is just something for a lab in retro
 
 If you want to try out this program, execute: `./gradlew run`
 
+Run the usual build and tests:
+```bash
+./gradlew clean build
+```
+
+Run the usual build and tests and additionally run a "code coverage" tool, called "[Jacoco](https://www.jacoco.org/jacoco/)" and open a browser on the results:
+```bash
+./build.sh
+```
+
 "Example" tests
 ----
 
