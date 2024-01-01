@@ -7,7 +7,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 class ExampleUnitTest {
     @Test
-    public void canAssertSomething() {
+    public void canPresentBestTimesAsReport() {
         assertThat(2 + 2, equalTo(4));
     }
 }
