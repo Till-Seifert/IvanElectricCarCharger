@@ -1,6 +1,9 @@
-apply plugin: 'java'
-apply plugin: "jacoco"
-apply plugin: 'application'
+plugins {
+    id 'java'
+    id 'application'
+    id 'jacoco'
+    id 'info.solidsoft.pitest' version '1.15.0'
+}
 
 mainClassName = 'com.oocode.ChargeTimes'
 
@@ -45,4 +48,9 @@ jacocoTestReport {
     reports {
         html.outputLocation = file("${buildDir}/jacocoHtml")
     }
+}
+pitest{
+    junit5PluginVersion = '1.2.1'
+    pitestVersion = '1.15.2'
+    targetClasses=["com.oocode.*"]
 }
