@@ -20,7 +20,7 @@ Advantages:
     Runs very quickly
 
 Disadvantages:
-    Only tests the report generation - that is the whole point of this sort of test
+    Only tests the finding of the best time from all the data - that is the whole point of this sort of test
     If this test passes, it doesn't mean the system as a whole works - you need other tests for that
     If you have badly designed the API or interface of the class under test, then this sort of test could need
         changing when you want to improve the design; i.e. with badly designed code and badly designed unit tests
