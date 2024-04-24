@@ -54,7 +54,7 @@ public class ChargeTimes {
         }
         Stream<String[]> output = forecastRows.stream();
         output = deleteHeader(output);
-        output = sortByHighestCapacity(output);
+        output = sortByHighestSummedCapacity(output);
         output = topX(output, 3);
         String strOutput = dateTimeFormatting(output);
 
