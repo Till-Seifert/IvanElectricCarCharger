@@ -36,6 +36,12 @@ public class ExampleUsingInputFileTest {
                 Wed, 24 Apr 2024 08:30:00 GMT
                 Wed, 24 Apr 2024 09:00:00 GMT
                 Wed, 24 Apr 2024 09:30:00 GMT""");
+
+        testFileInput("src/test/resources/embedded-forecast_duplicateSum.csv", """
+                Best times to plug in:
+                Wed, 24 Apr 2024 08:30:00 GMT
+                Wed, 24 Apr 2024 09:00:00 GMT
+                Wed, 24 Apr 2024 09:30:00 GMT""");
     }
 
     public void testFileInput(String filename, String expectedOutput) throws IOException, CsvException {
