@@ -8,7 +8,9 @@ import java.io.StringReader;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.List;
+import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static java.lang.Integer.parseInt;
 import static java.time.LocalDateTime.parse;
@@ -20,8 +22,12 @@ public class ChargeTimes {
 
     public static void main(String[] args) throws Exception {
         ChargeTimes c = new ChargeTimes();
-        String input = c.read_url();
-        String output = c.printReport(input);
+        c.generateReport();
+    }
+
+    public void generateReport() throws IOException, CsvException {
+        String input = this.read_url();
+        String output = this.generateOutput(input);
         System.out.println(output);
     }
 
@@ -37,7 +43,7 @@ public class ChargeTimes {
         return new SimpleHttpClient().readUrl(this.url);
     }
 
-    String printReport(String input) throws IOException, CsvException {
+    String generateOutput(String input) throws IOException, CsvException {
     /*
 "DATE_GMT","TIME_GMT","SETTLEMENT_DATE","SETTLEMENT_PERIOD","EMBEDDED_WIND_FORECAST","EMBEDDED_WIND_CAPACITY","EMBEDDED_SOLAR_FORECAST","EMBEDDED_SOLAR_CAPACITY"
 "2023-12-11T00:00:00","11:30","2023-12-11T00:00:00",23,1333,6488,2417,15595
@@ -46,16 +52,44 @@ public class ChargeTimes {
         try (CSVReader csvReader = new CSVReader(new StringReader(input))) {
             forecastRows = csvReader.readAll();
         }
-        return ("Best times to plug in:\n" +
-                forecastRows.stream().skip(1)
-                        .sorted(comparingInt(row -> -parseInt(row[4])))
-                        .limit(3)
-                        .map(row -> ZonedDateTime.of(parse(row[0])
-                                        .withHour(parseInt(row[1].split(":")[0]))
-                                        .withMinute(parseInt(row[1].split(":")[1])),
-                                ZoneId.of("GMT")))
-                        .sorted()
-                        .map((zonedDateTime) -> zonedDateTime.format(RFC_1123_DATE_TIME))
-                        .collect(Collectors.joining("\n")));
+        Stream<String[]> output = forecastRows.stream();
+        output = deleteHeader(output);
+        output = sortByHighestCapacity(output);
+        output = topX(output, 3);
+        String strOutput = dateTimeFormatting(output);
+
+        return ("Best times to plug in:\n" + strOutput);
     }
+
+    private static Function<String[], ZonedDateTime> getDateTime() {
+        return row -> ZonedDateTime.of(parse(row[0])
+                        .withHour(parseInt(row[1].split(":")[0]))
+                        .withMinute(parseInt(row[1].split(":")[1])),
+                ZoneId.of("GMT"));
+    }
+
+    private static Stream<String[]> deleteHeader(Stream<String[]> inputCSV) {
+        return inputCSV.skip(1);
+    }
+
+    private static Stream<String[]> sortByHighestCapacity(Stream<String[]> inputCSV) {
+        return inputCSV.sorted(comparingInt(row -> -parseInt(row[4])));
+    }
+
+    private static Stream<String[]> sortByHighestSummedCapacity(Stream<String[]> inputCSV) {
+        return inputCSV.sorted(comparingInt(row -> -parseInt(row[4])-parseInt(row[6])));
+    }
+
+    private static Stream<String[]> topX(Stream<String[]> inputCSV, int limit) {
+        return inputCSV.limit(limit);
+    }
+
+    private static String dateTimeFormatting(Stream<String[]> inputCSV) {
+        return inputCSV.map(getDateTime())
+                .sorted()
+                .map((zonedDateTime) -> zonedDateTime.format(RFC_1123_DATE_TIME))
+                .collect(Collectors.joining("\n"));
+    }
+
+
 }
