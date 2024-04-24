@@ -19,7 +19,10 @@ public class ChargeTimes {
     private final String url;
 
     public static void main(String[] args) throws Exception {
-        new ChargeTimes().printReport();
+        ChargeTimes c = new ChargeTimes();
+        String input = c.read_url();
+        String output = c.printReport(input);
+        System.out.println(output);
     }
 
     public ChargeTimes() {
@@ -30,17 +33,20 @@ public class ChargeTimes {
         this.url = url;
     }
 
-    void printReport() throws IOException, CsvException {
+    private String read_url() throws IOException {
+        return new SimpleHttpClient().readUrl(this.url);
+    }
+
+    String printReport(String input) throws IOException, CsvException {
     /*
 "DATE_GMT","TIME_GMT","SETTLEMENT_DATE","SETTLEMENT_PERIOD","EMBEDDED_WIND_FORECAST","EMBEDDED_WIND_CAPACITY","EMBEDDED_SOLAR_FORECAST","EMBEDDED_SOLAR_CAPACITY"
 "2023-12-11T00:00:00","11:30","2023-12-11T00:00:00",23,1333,6488,2417,15595
      */
-        String input = new SimpleHttpClient().readUrl(url);
         List<String[]> forecastRows;
         try (CSVReader csvReader = new CSVReader(new StringReader(input))) {
             forecastRows = csvReader.readAll();
         }
-        System.out.println("Best times to plug in:\n" +
+        return ("Best times to plug in:\n" +
                 forecastRows.stream().skip(1)
                         .sorted(comparingInt(row -> -parseInt(row[4])))
                         .limit(3)
